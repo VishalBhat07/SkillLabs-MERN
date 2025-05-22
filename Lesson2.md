@@ -1,3 +1,7 @@
+# Lesson 2 - Rendering components, Props & Hooks in React
+
+---
+
 # Import and Export Components in React
 
 React applications are built using reusable components. To maintain a clean and scalable codebase, components must be organized efficiently. This is where import and export functionalities play a crucial role. By separating components into different files, you ensure clarity, readability, and maintainability in your project.
@@ -19,6 +23,7 @@ React allows two types of exports:
 A default export is used when you want to export a single module (usually a component). This allows for flexibility in naming the import.
 
 Example:
+
 ```jsx
 // Button.js
 export default function Button() {
@@ -27,9 +32,10 @@ export default function Button() {
 ```
 
 Importing the Default Export:
+
 ```jsx
 // App.js
-import ButtonComponent from './Button';
+import ButtonComponent from "./Button";
 
 function App() {
   return <ButtonComponent />;
@@ -41,6 +47,7 @@ function App() {
 Named exports are useful when you need to export multiple functions or components from a single file.
 
 Example:
+
 ```jsx
 // utils.js
 export function add(a, b) {
@@ -53,13 +60,15 @@ export function subtract(a, b) {
 ```
 
 Importing Named Exports:
+
 ```jsx
-import { add, subtract } from './utils';
+import { add, subtract } from "./utils";
 ```
 
 Renaming Named Imports:
+
 ```jsx
-import { add as sum } from './utils';
+import { add as sum } from "./utils";
 ```
 
 ## Project Structure
@@ -96,11 +105,13 @@ Before exploring React's efficient rendering techniques, let's first understand 
 ## The Problem with Hardcoding Elements
 
 Hardcoding every UI value directly in the JSX is inefficient because:
-* **No Reusability** – You repeat code instead of creating reusable components.
-* **Difficult Updates** – Every change requires manually modifying multiple lines.
-* **Poor Maintainability** – The codebase becomes cluttered and harder to manage.
+
+- **No Reusability** – You repeat code instead of creating reusable components.
+- **Difficult Updates** – Every change requires manually modifying multiple lines.
+- **Poor Maintainability** – The codebase becomes cluttered and harder to manage.
 
 **Example of Hardcoding UI Elements**
+
 ```jsx
 function UserList() {
   return (
@@ -118,9 +129,9 @@ If you have hundreds of users, this method quickly becomes **unmanageable**.
 ## Using JavaScript Array Methods for Efficient Rendering
 
 Instead of hardcoding values, React enables dynamic rendering using JavaScript array methods. Some commonly used ones include:
-* `.map()`
-* `.filter()`
 
+- `.map()`
+- `.filter()`
 
 These methods follow the **DRY (Don't Repeat Yourself)** principle, reducing redundant code.
 
@@ -129,6 +140,7 @@ These methods follow the **DRY (Don't Repeat Yourself)** principle, reducing red
 The `.map()` method transforms an array into JSX elements.
 
 **Example:**
+
 ```jsx
 const users = ["Vishal", "Bob", "Srni", "Vineeth"];
 
@@ -136,7 +148,9 @@ function UserList() {
   return (
     <div>
       {users.map((user, index) => (
-        <p key={index}>User {index + 1}: {user}</p>
+        <p key={index}>
+          User {index + 1}: {user}
+        </p>
       ))}
     </div>
   );
@@ -150,6 +164,7 @@ Now, adding more users only requires updating the `users` array, keeping the UI 
 The `.filter()` method removes unwanted elements before rendering.
 
 **Example:**
+
 ```jsx
 const users = [
   { name: "Vishal", active: true },
@@ -161,9 +176,11 @@ const users = [
 function ActiveUsers() {
   return (
     <div>
-      {users.filter(user => user.active).map(user => (
-        <p key={user.name}>Active User: {user.name}</p>
-      ))}
+      {users
+        .filter((user) => user.active)
+        .map((user) => (
+          <p key={user.name}>Active User: {user.name}</p>
+        ))}
     </div>
   );
 }
@@ -180,6 +197,7 @@ In React, when rendering lists using `.map()`, each element requires a unique **
 Keys help React **identify** which elements changed, were added, or removed. Without keys, React might inefficiently re-render elements, leading to unnecessary updates.
 
 **Example Without Keys (Inefficient Rendering)**
+
 ```jsx
 const users = ["Vishal", "Bob", "Srni", "Vineeth"];
 
@@ -187,7 +205,7 @@ function UserList() {
   return (
     <div>
       {users.map((user) => (
-        <p>{user}</p>  // No key assigned
+        <p>{user}</p> // No key assigned
       ))}
     </div>
   );
@@ -197,6 +215,7 @@ function UserList() {
 This code works, but React **struggles** to optimize updates when modifying the list dynamically.
 
 **Example With Keys (Optimized Rendering)**
+
 ```jsx
 const users = ["Vishal", "Bob", "Srni", "Vineeth"];
 
@@ -204,7 +223,7 @@ function UserList() {
   return (
     <div>
       {users.map((user, index) => (
-        <p key={index}>{user}</p>  // Key assigned
+        <p key={index}>{user}</p> // Key assigned
       ))}
     </div>
   );
@@ -212,8 +231,9 @@ function UserList() {
 ```
 
 ## Why This Works Better
-* Each `<p>` element has a **unique key**, helping React identify individual items.
-* React efficiently **diffs** the previous and new state, re-rendering only changed items.
+
+- Each `<p>` element has a **unique key**, helping React identify individual items.
+- React efficiently **diffs** the previous and new state, re-rendering only changed items.
 
 ## Keys in Dynamic Lists (Using Unique IDs)
 
@@ -230,7 +250,7 @@ const users = [
 function UserList() {
   return (
     <div>
-      {users.map(user => (
+      {users.map((user) => (
         <p key={user.id}>{user.name}</p>
       ))}
     </div>
@@ -239,8 +259,9 @@ function UserList() {
 ```
 
 ## Why Unique IDs Are Preferred
-* Index-based keys can **break** React's tracking when elements move.
-* Unique IDs remain consistent even if the list order changes.
+
+- Index-based keys can **break** React's tracking when elements move.
+- Unique IDs remain consistent even if the list order changes.
 
 # Using Props in React Components
 
@@ -254,10 +275,10 @@ Props (short for **"properties"**) are **read-only** values passed from a **pare
 
 ## Why Props Are Important?
 
-* Eliminates hardcoded values
-* Improves code readability
-* Ensures reusability and scalability
-* Makes UI updates simpler
+- Eliminates hardcoded values
+- Improves code readability
+- Ensures reusability and scalability
+- Makes UI updates simpler
 
 ## Example Without Props (Hardcoded and Inefficient)
 
@@ -276,9 +297,10 @@ function UserProfile() {
 ```
 
 **Problems:**
-* If more users are added, code duplication increases.
-* Difficult to maintain or update.
-* No component **reuse**, violating DRY principles.
+
+- If more users are added, code duplication increases.
+- Difficult to maintain or update.
+- No component **reuse**, violating DRY principles.
 
 ## Using Props for Reusability
 
@@ -305,8 +327,9 @@ function App() {
 ```
 
 **Why This Is Better:**
-* **Avoids repetition**—just change the props to update the UI.
-* **Component reusability**—no need to manually define each user.
+
+- **Avoids repetition**—just change the props to update the UI.
+- **Component reusability**—no need to manually define each user.
 
 ## Passing Objects as Props
 
@@ -334,7 +357,7 @@ function UserProfile({ name, email }) {
 function App() {
   return (
     <div>
-      {users.map(user => (
+      {users.map((user) => (
         <UserProfile key={user.id} {...user} />
       ))}
     </div>
@@ -343,7 +366,9 @@ function App() {
 ```
 
 **Why This Works:**
-* `.map()` **iterates** over the `users` array dynamically.
-* `{...user}` **spreads** object properties into props automatically.
-* **Keys** (`key={user.id}`) ensure React efficiently tracks UI updates.
-## useState, useEffect,
+
+- `.map()` **iterates** over the `users` array dynamically.
+- `{...user}` **spreads** object properties into props automatically.
+- **Keys** (`key={user.id}`) ensure React efficiently tracks UI updates.
+
+## useState, useEffect, 
