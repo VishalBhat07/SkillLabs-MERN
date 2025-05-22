@@ -1,0 +1,13 @@
+.container {
+  border: 2px solid black;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.heading {
+  color: red;
+  margin: 10px 10px;
+}
