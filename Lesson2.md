@@ -371,4 +371,4 @@ function App() {
 - `{...user}` **spreads** object properties into props automatically.
 - **Keys** (`key={user.id}`) ensure React efficiently tracks UI updates.
 
-## useState, useEffect, 
+## useState, useEffect
