@@ -1,8 +1,16 @@
 import React from 'react'
+import Greeting from './Greeting'
+
 
 const Greetings = () => {
   return (
-    <div>Greetings, hi this Vishal Bhat</div>
+    <>
+    <Greeting name="Vineeth" age="19"/>
+    <Greeting name="Vishal Bhat" age="20"/>
+    <Greeting name="Sreenivaas" age="20"/>
+    </>
+
+
   )
 }
 
